@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Serene Hall Coffee</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: #f7f3ef;
+            font-family: 'Poppins', sans-serif;
+        }
+        /* ===== COPY STYLE DARI INDEX (NAVBAR, FOOTER, GLOBAL) ===== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: whitesmoke;
+            color: #222;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        /* NAVBAR */
+        
+        #pembungkusNavbar {
+            background: white;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            transition: .28s;
+        }
+        
+        #bagianKiri {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        
+        #bagianKiri img {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        
+        #namaWeb {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3b2f25;
+            font-family: 'Cinzel', serif;
+        }
+        
+        #bagianKanan {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+        
+        .navigasi {
+            font-size: 17px;
+            text-decoration: none;
+            color: #222;
+            padding: 8px 6px;
+            border-radius: 8px;
+            transition: .18s;
+        }
+        
+        .navigasi:hover {
+            color: #c9b59c;
+            transform: translateY(-2px);
+        }
+        
+        #keranjangID {
+            border-left: 1px solid rgba(0, 0, 0, 0.12);
+            padding-left: 18px;
+        }
+        
+        #hamburger {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        /* MOBILE MENU */
+        
+        #mobileMenu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 0;
+            width: 70%;
+            max-width: 360px;
+            height: calc(100vh - 70px);
+            background: white;
+            box-shadow: -8px 0 28px rgba(0, 0, 0, 0.12);
+            padding: 28px;
+            flex-direction: column;
+            gap: 18px;
+            transform: translateX(100%);
+            transition: .28s;
+            z-index: 998;
+        }
+        
+        #mobileMenu.open {
+            display: flex;
+            transform: translateX(0);
+        }
+        
+        #mobileMenu a {
+            font-size: 18px;
+            color: #222;
+            text-decoration: none;
+            padding: 10px 6px;
+        }
+        
+        #mobileClose {
+            align-self: flex-end;
+            cursor: pointer;
+        }
+        
+        main {
+            padding-top: 100px;
+        }
+        /* MAIN */
+        
+        .checkoutContainer {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        h2 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #4a3b34;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        th {
+            background: #eee4d9;
+            font-weight: bold;
+        }
+        
+        .totalBox {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: right;
+        }
+        
+        .formGroup {
+            margin-bottom: 18px;
+        }
+        
+        .formGroup label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        .formGroup input,
+        .formGroup select,
+        .formGroup textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #bbb;
+            background: #faf7f4;
+        }
+        
+        #btnKirimPesanan {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            border: none;
+            background: #4a3b34;
+            color: white;
+            border-radius: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        #btnKirimPesanan:hover {
+            background: #2e241f;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div id="pembungkusNavbar">
+            <div id="bagianKiri">
+                <img src="asset/logo/2.png" alt="Logo">
+                <div id="namaWeb">SERENE HALL</div>
+            </div>
+            <nav id="bagianKanan">
+                <a class="navigasi" href="index.html">Home</a>
+                <a class="navigasi" href="index.html#kontenKedua">Menu</a>
+            </nav>
+            <i id="hamburger" class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+
+    <div id="mobileMenu">
+        <i id="mobileClose" class="fa-solid fa-xmark"></i>
+        <a href="index.html">Home</a>
+        <a href="index.html#kontenKedua">Menu</a>
+        <a href="index.html#kontenKetiga">Best Seller</a>
+        <a href="index.html#kontenKeenam">About</a>
+    </div>
+
+    <!-- ===================== MAIN ===================== -->
+    <div class="checkoutContainer">
+
+        <h2>Ringkasan Pesanan</h2>
+
+        <table id="tabelCheckout">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Harga Satuan</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="totalBox">
+            <strong>Total Pembayaran: <span id="checkoutTotal">Rp 0</span></strong>
+        </div>
+
+        <hr style="margin: 25px 0;">
+
+        <h2>Detail Pembeli</h2>
+
+        <div class="formGroup">
+            <label>Nama</label>
+            <input type="text" id="inputNama" placeholder="Masukkan nama anda...">
+        </div>
+
+        <div class="formGroup">
+            <label>Nomor Meja</label>
+            <input type="number" id="inputMeja" placeholder="Contoh: 12">
+        </div>
+
+        <div class="formGroup">
+            <label>Metode Pembayaran</label>
+            <select id="inputBayar">
+                <option value="Cash">Cash (Bayar ke kasir)</option>
+                <option value="QRIS">QRIS / E-money</option>
+            </select>
+        </div>
+
+        <div class="formGroup">
+            <label>Catatan</label>
+            <textarea id="inputCatatan" rows="3" placeholder="Contoh: sedikit gula, no ice"></textarea>
+        </div>
+
+        <button id="btnKirimPesanan">Kirim Pesanan</button>
+
+    </div>
+
+
+    <!-- ===================== FOOTER (SIMPLE) ===================== -->
+    <footer style="text-align:center; padding:40px 0; color:#5a4c45;">
+        © <span id="year"></span> Coffee Shop — All Rights Reserved.
+    </footer>
+
+
+    <!-- ===================== SCRIPT ===================== -->
+    <script>
+        document.getElementById("year").innerText = new Date().getFullYear();
+
+        // --- ambil data keranjang dari localStorage ---
+        let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+
+        function tampilkanCheckout() {
+            const tbody = document.querySelector("#tabelCheckout tbody");
+            const totalEl = document.getElementById("checkoutTotal");
+
+            tbody.innerHTML = "";
+
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.harga * item.qty;
+                total += itemTotal;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.nama}</td>
+                        <td>${item.qty}</td>
+                        <td>Rp ${item.harga.toLocaleString()}</td>
+                        <td>Rp ${itemTotal.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+
+            totalEl.innerText = "Rp " + total.toLocaleString();
+        }
+
+        tampilkanCheckout();
+
+
+        // =============== KIRIM PESANAN (NANTI BISA KIRIM WHATSAPP) ===============
+        document.getElementById("btnKirimPesanan").addEventListener("click", () => {
+            const nama = document.getElementById("inputNama").value.trim();
+            const meja = document.getElementById("inputMeja").value.trim();
+            const bayar = document.getElementById("inputBayar").value;
+            const catatan = document.getElementById("inputCatatan").value.trim();
+
+            if (!nama || !meja) {
+                alert("Nama & Nomor meja wajib diisi.");
+                return;
+            }
+
+            // SIMPAN DATA CHECKOUT KE LOCAL STORAGE
+            const checkoutData = {
+                nama: nama,
+                meja: meja,
+                bayar: bayar,
+                catatan: catatan
+            };
+
+            localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
+
+            // REDIRECT KE SUCCESS PAGE
+            window.location.href = "success.html";
+        });
+    </script>
+
+</body>
+
+</html>

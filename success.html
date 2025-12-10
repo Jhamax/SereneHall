@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pesanan Berhasil • Serene Hall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            background: #f4ede4;
+            color: #3a2f2a;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: fade 0.8s ease;
+        }
+        
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .icon-check {
+            font-size: 58px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        
+        .order-id {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #6b5e54;
+        }
+        
+        .section {
+            background: #faf7f2;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 18px;
+            text-align: left;
+        }
+        
+        .section h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .section p {
+            font-size: 14px;
+            margin: 3px 0;
+        }
+        
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        
+        table th,
+        table td {
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        table th {
+            text-align: left;
+        }
+        
+        .total-bar {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2f2723;
+            text-align: right;
+        }
+        
+        .btn-home {
+            margin-top: 28px;
+            display: block;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            background: #3a2f2a;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        
+        .btn-home:hover {
+            background: #1d1714;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <i class="fa-solid fa-circle-check icon-check"></i>
+        <h2>Pesanan Berhasil!</h2>
+
+        <div class="order-id" id="orderID">Order ID: -</div>
+
+        <p style="font-size:14px; margin-top:6px;">
+            Terima kasih! Pesanan Anda sedang diproses dan akan segera diantar.
+        </p>
+
+        <!-- Ringkasan Pembeli -->
+        <div class="section">
+            <h3>Data Pembeli</h3>
+            <p id="namaP">Nama: -</p>
+            <p id="mejaP">Nomor Meja: -</p>
+            <p id="bayarP">Metode Pembayaran: -</p>
+            <p id="catatanP">Catatan: -</p>
+        </div>
+
+        <!-- Ringkasan Pesanan -->
+        <div class="section">
+            <h3>Ringkasan Pesanan</h3>
+
+            <table id="tabelSuccess">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="total-bar" id="totalHarga">Total: Rp 0</div>
+        </div>
+
+        <button class="btn-home" onclick="window.location.href='index.html'">
+            Kembali ke Beranda
+        </button>
+    </div>
+
+    <script>
+        // ================== AMBIL DATA DARI localStorage ==================
+        let checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || null;
+        let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+
+        // Jika user buka halaman ini tanpa checkout → kembalikan
+        if (!checkoutData || cart.length === 0) {
+            window.location.href = "index.html";
+        }
+
+        // Generate unique order ID
+        function generateOrderID() {
+            let num = Math.floor(Math.random() * 900) + 100; // 3 angka random
+            let date = new Date();
+            return `SH-${date.getFullYear()}${(date.getMonth()+1)
+                .toString().padStart(2, "0")}${date.getDate()
+                .toString().padStart(2,"0")}-${num}`;
+        }
+
+        const orderID = generateOrderID();
+        document.getElementById("orderID").innerText = "Order ID: " + orderID;
+
+        // Tampilkan data pembeli
+        document.getElementById("namaP").innerText = "Nama: " + checkoutData.nama;
+        document.getElementById("mejaP").innerText = "Nomor Meja: " + checkoutData.meja;
+        document.getElementById("bayarP").innerText = "Metode Pembayaran: " + checkoutData.bayar;
+        document.getElementById("catatanP").innerText = "Catatan: " + (checkoutData.catatan || "-");
+
+        // Tampilkan ringkasan pesanan
+        const tbody = document.querySelector("#tabelSuccess tbody");
+        let totalHarga = 0;
+
+        cart.forEach(item => {
+            let itemTotal = item.harga * item.qty;
+            totalHarga += itemTotal;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${item.nama}</td>
+                    <td>${item.qty}</td>
+                    <td>Rp ${itemTotal.toLocaleString()}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById("totalHarga").innerText = "Total: Rp " + totalHarga.toLocaleString();
+
+        // Setelah success → kosongkan keranjang
+        localStorage.removeItem("cartData");
+        localStorage.removeItem("checkoutData");
+    </script>
+
+</body>
+
+</html>

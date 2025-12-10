@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="asset/logo/2.png" />
+    <title>Serene Hall Coffe</title>
+
+    <style>
+        /* ========== RESET ========== */
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: whitesmoke;
+            color: #222;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+        /* ========== NAVBAR (STICKY + RESPONSIVE) ========== */
+        
+        #pembungkusNavbar {
+            background-color: white;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            transition: 0.28s ease;
+        }
+        
+        .navbar-scrolled {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+            backdrop-filter: saturate(120%) blur(4px);
+        }
+        
+        #bagianKiri {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        
+        #bagianKiri img {
+            height: 60px;
+            width: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        #namaWeb {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3b2f25;
+            font-family: 'Cinzel', serif;
+        }
+        
+        #bagianKanan {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+        
+        .navigasi {
+            font-size: 17px;
+            text-decoration: none;
+            color: #222;
+            padding: 8px 6px;
+            border-radius: 8px;
+            transition: color .18s, background .18s, transform .18s;
+        }
+        
+        .navigasi:hover {
+            color: #c9b59c;
+            transform: translateY(-2px);
+        }
+        
+        #keranjangID {
+            border-left: 2px solid rgba(0, 0, 0, 0.12);
+            padding-left: 18px;
+            border-radius: 0;
+        }
+        /* hamburger */
+        
+        #hamburger {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+        }
+        /* mobile slide menu */
+        
+        #mobileMenu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 0;
+            width: 70%;
+            max-width: 360px;
+            height: calc(100vh - 70px);
+            background: white;
+            box-shadow: -8px 0 28px rgba(0, 0, 0, 0.12);
+            padding: 28px;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 998;
+            transform: translateX(100%);
+            transition: transform 0.28s ease;
+        }
+        
+        #mobileMenu.open {
+            display: flex;
+            transform: translateX(0%);
+        }
+        
+        #mobileMenu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #222;
+            padding: 10px 6px;
+            border-radius: 8px;
+        }
+        
+        #mobileMenu a:hover {
+            color: #c9b59c;
+        }
+        /* add a close button */
+        
+        #mobileClose {
+            align-self: flex-end;
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        /* ========== LAYOUT / SPACING ========== */
+        /* make sure content is not hidden behind fixed navbar */
+        
+        main {
+            padding-top: 90px;
+            /* navbar height + space */
+            width: 100%;
+        }
+        
+        #pembungkusKonten {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        /* ========== HERO / KONTEN PERTAMA ========== */
+        
+        #kontenPertama {
+            margin: 20px;
+            border-radius: 28px;
+            height: 85vh;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            background-image: url(asset/lainnya/bgKP.png);
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+        }
+        /* overlay */
+        
+        #kontenPertama::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.08));
+            z-index: 1;
+            border-radius: 28px;
+        }
+        
+        #kontenPertama>* {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .h3_KP {
+            font-size: 48px;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-family: "Cinzel", serif;
+            color: #fff;
+        }
+        
+        .p_KP {
+            font-size: 18px;
+            max-width: 720px;
+            line-height: 1.6;
+            opacity: 0.95;
+            color: #fff;
+        }
+        
+        #pembungkusBtnKP {
+            margin-top: 26px;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 26px;
+            border-radius: 30px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.25s ease;
+        }
+        
+        .btn-primary,
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-primary:hover,
+        .btn-outline:hover {
+            border: 2px solid #c9b59c;
+            background: #c9b59c;
+            color: rgb(22, 22, 22);
+            transform: translateY(-4px);
+        }
+        /* ========== KONTEN KEDUA (MENU COLLECTION) ========== */
+        
+        #kontenKedua {
+            padding: 60px 40px;
+            background-color: #f5f5f5;
+            border-radius: 18px;
+            margin: 0 20px;
+        }
+        
+        .judulKM {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #3b2f25;
+            letter-spacing: 1px;
+        }
+        
+        .gridMenu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        
+        .menuCard {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            transition: 0.25s ease;
+            border: 1px solid #e9e4df;
+        }
+        
+        .menuCard:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+        }
+        
+        .menuCard h3 {
+            font-size: 22px;
+            color: #3b2f25;
+            margin-bottom: 8px;
+        }
+        
+        .menuCard p {
+            font-size: 15px;
+            color: #5a4e45;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .btnMenu {
+            padding: 10px 18px;
+            border-radius: 22px;
+            background: #d8c090;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            color: #3b2f25;
+            transition: 0.18s ease;
+        }
+        
+        .btnMenu:hover {
+            background: #3b2f25;
+            color: white;
+        }
+        /* ========== SECTION PRODUK ========== */
+        
+        .sectionMenu {
+            padding: 60px 40px;
+            margin: 0 20px;
+            border-radius: 14px;
+        }
+        
+        #kontenKetiga.sectionMenu {
+            background-color: #f2ece4;
+        }
+        
+        #kontenKeempat.sectionMenu {
+            background-color: #f7f3ed;
+        }
+        
+        #kontenKelima.sectionMenu {
+            background-color: #fcfaf7;
+        }
+        
+        .sectionTitle {
+            font-size: 30px;
+            font-weight: 700;
+            color: #3b2f25;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .gridProduk {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .cardProduk {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #eee7e3;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            transition: 0.25s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cardProduk:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+        }
+        
+        .imgProduk {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            object-fit: cover;
+            background-color: rgba(216, 192, 144, 0.12);
+            transition: transform .35s ease, object-fit .35s;
+        }
+        
+        .cardProduk:hover .imgProduk {
+            object-fit: contain;
+            transform: scale(1.03);
+            background-color: #fff;
+        }
+        
+        .namaProduk {
+            font-size: 16px;
+            font-weight: 700;
+            color: #3b2f25;
+            margin-bottom: 6px;
+        }
+        
+        .hargaProduk {
+            color: #5a4e45;
+            margin-bottom: 12px;
+        }
+        
+        .btnAdd {
+            margin-top: auto;
+            padding: 10px 14px;
+            border: none;
+            background: #d8c090;
+            color: #3b2f25;
+            border-radius: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .22s ease;
+        }
+        
+        .btnAdd:hover {
+            background-color: #3b2f25;
+            color: white;
+        }
+        /* ========== ABOUT (KONTEN KEENAM) ========== */
+        
+        #kontenKeenam {
+            padding: 70px 40px;
+            background-color: #f2ede7;
+            margin: 0 20px 40px 20px;
+            border-radius: 16px;
+        }
+        
+        .aboutInner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .aboutInner img {
+            width: 380px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.09);
+        }
+        
+        .aboutText {
+            max-width: 560px;
+        }
+        
+        .aboutText h2 {
+            font-size: 36px;
+            color: #3b2f25;
+            margin-bottom: 14px;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .aboutText p {
+            font-size: 17px;
+            color: #4e453f;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        /* ========== FOOTER ========== */
+        
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            color: #6b6058;
+        }
+        /* ========== RESPONSIVE ========== */
+        
+        @media (max-width: 1100px) {
+            .gridMenu,
+            .gridProduk {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .h3_KP {
+                font-size: 40px;
+            }
+        }
+        
+        @media (max-width: 780px) {
+            .gridMenu,
+            .gridProduk {
+                grid-template-columns: 1fr;
+            }
+            #kontenPertama {
+                border-radius: 16px;
+                height: 70vh;
+                min-height: 420px;
+                padding: 28px 18px;
+            }
+            .h3_KP {
+                font-size: 34px;
+            }
+            #bagianKanan {
+                display: none;
+            }
+            #hamburger {
+                display: block;
+            }
+            #mobileMenu {
+                display: flex;
+            }
+            .aboutInner {
+                flex-direction: column;
+            }
+            .aboutInner img {
+                width: 90%;
+                height: 280px;
+            }
+            main {
+                padding-top: 86px;
+            }
+        }
+        /* KONTAK */
+        /* ========== CONTACT SECTION (KONTEN KETUJUH) ========== */
+        
+        #kontenKetujuh {
+            padding: 70px 40px;
+            background-color: #f7f3ed;
+            margin: 0 20px 40px 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        
+        .contactTitle {
+            font-size: 32px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: #3b2f25;
+            margin-bottom: 10px;
+        }
+        
+        .contactSubtitle {
+            font-size: 16px;
+            color: #5a4e45;
+            margin-bottom: 32px;
+        }
+        
+        .contactContainer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+        
+        .contactCard {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 14px;
+            border: 1px solid #e9e4df;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            transition: 0.25s ease;
+        }
+        
+        .contactCard:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+        }
+        
+        .contactCard i {
+            font-size: 36px;
+            color: #c9b59c;
+            margin-bottom: 12px;
+        }
+        
+        .contactCard h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #3b2f25;
+            margin-bottom: 6px;
+        }
+        
+        .contactCard p {
+            font-size: 15px;
+            color: #5a4e45;
+            margin-bottom: 18px;
+        }
+        
+        .btnContact {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #d8c090;
+            color: #3b2f25;
+            text-decoration: none;
+            border-radius: 22px;
+            font-weight: 700;
+            transition: 0.22s ease;
+        }
+        
+        .btnContact:hover {
+            background: #3b2f25;
+            color: white;
+        }
+        /* Responsive */
+        
+        @media(max-width: 900px) {
+            .contactContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media(max-width: 600px) {
+            .contactContainer {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* SIDEBAR CART */
+        /* CART SIDEBAR */
+        
+        #cartSidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -8px 0 26px rgba(0, 0, 0, 0.15);
+            transition: right 0.35s ease;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+        }
+        
+        #cartSidebar.open {
+            opacity: 1;
+        }
+        
+        #cartSidebar.slide {
+            right: 0;
+        }
+        
+        #cartHeader {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0d7cf;
+        }
+        
+        #cartItems {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        .cartItem {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            background: #faf7f3;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #efe7de;
+        }
+        
+        .cartItem img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        
+        .cartItemDetails {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+        
+        .cartItemDetails h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #3b2f25;
+        }
+        
+        .cartItemDetails p {
+            margin: 0;
+            font-size: 14px;
+            color: #5a4e45;
+        }
+        
+        .qtyBox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        
+        .qtyBtn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            background: #e4d7c8;
+        }
+        
+        .qtyBtn:hover {
+            background: #3b2f25;
+            color: white;
+        }
+        
+        .qtyNum {
+            width: 28px;
+            text-align: center;
+            font-weight: 600;
+            padding: 4px 0;
+            background: white;
+            border-radius: 4px;
+        }
+        /* FOOTER TOTAL */
+        
+        #cartFooter {
+            padding: 20px;
+            border-top: 1px solid #e0d7cf;
+        }
+        
+        #checkoutBtn {
+            width: 100%;
+            padding: 12px;
+            background: #3b2f25;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin-top: 12px;
+            cursor: pointer;
+        }
+        
+        #checkoutBtn:hover {
+            background: #c9b59c;
+        }
+        /* BUTTON DELETE — SERENE HALL COFFEE STYLE */
+        
+        .btnDelete {
+            background: rgba(231, 221, 210, 0.7);
+            border: none;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 10px;
+            color: #3b2f25;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+            margin-left: auto;
+            /* <-- tombol otomatis berada di kanan */
+        }
+        
+        .btnDelete i {
+            pointer-events: none;
+        }
+        
+        .btnDelete:hover {
+            background: #3b2f25;
+            color: #fff;
+            transform: scale(1.12);
+            opacity: 0.9;
+        }
+        
+        .btnDelete:active {
+            transform: scale(0.92);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header>
+        <div id="pembungkusNavbar" role="navigation" aria-label="Main navigation">
+            <div id="bagianKiri">
+                <img src="asset/logo/2.png" alt="Serene Hall Coffee Logo" />
+                <div id="namaWeb">SERENE HALL</div>
+            </div>
+
+            <!-- Desktop menu -->
+            <nav id="bagianKanan" aria-hidden="false">
+                <a class="navigasi" href="#">Home</a>
+                <a class="navigasi" href="#kontenKedua">Menu</a>
+                <a class="navigasi" href="#kontenKetiga">Best Seller</a>
+                <a class="navigasi" href="#kontenKeenam">About</a>
+                <a class="navigasi" href="#kontenKetujuh">Contact</a>
+                <a class="navigasi" id="keranjangID" href="#">Pesanan Anda</a>
+            </nav>
+
+            <!-- Hamburger for mobile -->
+            <div id="hamburger" aria-label="Open menu" aria-expanded="false" role="button">☰</div>
+        </div>
+
+        <!-- Mobile slide menu -->
+        <nav id="mobileMenu" aria-hidden="true">
+            <div id="mobileClose" aria-label="Close menu">✕</div>
+            <a href="#" class="mobile-link">Home</a>
+            <a href="#kontenKedua" class="mobile-link">Menu</a>
+            <a href="#kontenKetiga" class="mobile-link">Best Seller</a>
+            <a href="#kontenKeenam" class="mobile-link">About</a>
+            <a href="#kontenKetujuh" class="mobile-link">Contact</a>
+            <a href="#" id="mobileKeranjang" class="mobile-link">Pesanan</a>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <div id="pembungkusKonten">
+            <!-- HERO -->
+            <section id="kontenPertama" aria-labelledby="heroTitle">
+                <h3 id="heroTitle" class="h3_KP">SERENE HALL COFFEE</h3>
+                <p class="p_KP">Produk kami dibuat melalui proses seleksi ketat dan penyeduhan berbasis standar kualitas premium.
+                </p>
+
+                <div id="pembungkusBtnKP">
+                    <a href="#kontenKedua"><button class="btn btn-primary">Lihat Menu</button></a>
+                    <a href="#kontenKeenam"><button class="btn btn-outline">Hubungi Kami</button></a>
+                </div>
+            </section>
+
+            <!-- MENU COLLECTION -->
+            <section id="kontenKedua">
+                <h2 class="judulKM">Menu Collection</h2>
+
+                <div class="gridMenu">
+                    <!-- Kategori 1 -->
+                    <div class="menuCard">
+                        <h3>Best Seller</h3>
+                        <p>Koleksi minuman paling favorit pelanggan.</p>
+                        <a href="#kontenKetiga"><button class="btnMenu">Lihat Menu</button></a>
+                    </div>
+
+                    <!-- Kategori 2 -->
+                    <div class="menuCard">
+                        <h3>Non Coffee</h3>
+                        <p>Serene Hall juga menawarkan minuman non-coffee.</p>
+                        <a href="#kontenKeempat"><button class="btnMenu">Lihat Menu</button></a>
+                    </div>
+
+                    <!-- Kategori 3 -->
+                    <div class="menuCard">
+                        <h3>All Menu</h3>
+                        <p>Espresso, Americano, Latte, Cappuccino, dan lainnya.</p>
+                        <a href="#kontenKelima"><button class="btnMenu">Lihat Menu</button></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BEST SELLER -->
+            <section id="kontenKetiga" class="sectionMenu">
+                <h2 class="sectionTitle">Best Seller</h2>
+
+                <div class="gridProduk">
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/caramel_late.jpg" class="imgProduk" alt="Caramel Latte">
+                        <h4 class="namaProduk">Caramel Latte</h4>
+                        <p class="hargaProduk">Rp 21.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/cappucino.jpg" class="imgProduk" alt="Cappuccino">
+                        <h4 class="namaProduk">Cappuccino</h4>
+                        <p class="hargaProduk">Rp 17.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/mochacino.jpg" class="imgProduk" alt="Mochaccino">
+                        <h4 class="namaProduk">Mochaccino</h4>
+                        <p class="hargaProduk">Rp 18.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NON - COFFEE -->
+            <section id="kontenKeempat" class="sectionMenu">
+                <h2 class="sectionTitle">Non - Coffee</h2>
+
+                <div class="gridProduk">
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/matcha_latte.jpg" class="imgProduk" alt="Matcha Latte">
+                        <h4 class="namaProduk">Matcha Latte</h4>
+                        <p class="hargaProduk">Rp 18.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/red_velvet.jpg" class="imgProduk" alt="Red Velvet">
+                        <h4 class="namaProduk">Red Velvet</h4>
+                        <p class="hargaProduk">Rp 15.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/thai_tea.jpg" class="imgProduk" alt="Thai Tea">
+                        <h4 class="namaProduk">Thai Tea</h4>
+                        <p class="hargaProduk">Rp 13.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ALL MENU -->
+            <section id="kontenKelima" class="sectionMenu">
+                <h2 class="sectionTitle">All Menu</h2>
+
+                <div class="gridProduk">
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/espreso.jpg" class="imgProduk" alt="Espresso">
+                        <h4 class="namaProduk">Espresso</h4>
+                        <p class="hargaProduk">Rp 15.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/americano.jpg" class="imgProduk" alt="Americano">
+                        <h4 class="namaProduk">Americano</h4>
+                        <p class="hargaProduk">Rp 15.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/flat_white.jpg" class="imgProduk" alt="Flat White">
+                        <h4 class="namaProduk">Flat White</h4>
+                        <p class="hargaProduk">Rp 17.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/caramel_late.jpg" class="imgProduk" alt="Caramel Latte">
+                        <h4 class="namaProduk">Caramel Latte</h4>
+                        <p class="hargaProduk">Rp 21.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/cappucino.jpg" class="imgProduk" alt="Cappuccino">
+                        <h4 class="namaProduk">Cappuccino</h4>
+                        <p class="hargaProduk">Rp 17.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/mochacino.jpg" class="imgProduk" alt="Mochaccino">
+                        <h4 class="namaProduk">Mochaccino</h4>
+                        <p class="hargaProduk">Rp 18.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/matcha_latte.jpg" class="imgProduk" alt="Matcha Latte">
+                        <h4 class="namaProduk">Matcha Latte</h4>
+                        <p class="hargaProduk">Rp 18.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/red_velvet.jpg" class="imgProduk" alt="Red Velvet">
+                        <h4 class="namaProduk">Red Velvet</h4>
+                        <p class="hargaProduk">Rp 15.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+
+                    <div class="cardProduk">
+                        <img src="asset/menu_kopi/thai_tea.jpg" class="imgProduk" alt="Thai Tea">
+                        <h4 class="namaProduk">Thai Tea</h4>
+                        <p class="hargaProduk">Rp 13.000</p>
+                        <button class="btnAdd">Add to Cart</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT (KONTEN KEENAM) -->
+            <section id="kontenKeenam" class="sectionMenu">
+                <div class="aboutInner">
+                    <img src="asset/logo/2.png" alt="About Serene Hall Coffee">
+                    <div class="aboutText">
+                        <h2>About Serene Hall Coffee</h2>
+                        <p>Serene Hall Coffee merupakan website menu resmi yang dirancang untuk memberikan pengalaman pemesanan yang lebih mudah, cepat, dan informatif kepada pelanggan kami.</p>
+
+                        <p>Kami selalu mengutamakan kualitas bahan, proses pembuatan, dan pelayanan, sehingga setiap cangkir kopi menghadirkan rasa yang konsisten dan premium.</p>
+
+                        <p>Website ini dibuat untuk memberikan informasi lengkap mengenai menu, kategori, harga, serta mempermudah pelanggan dalam memilih minuman favorit mereka.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KONTAK (KONTEN KETUJUH) -->
+            <section id="kontenKetujuh">
+                <h2 class="contactTitle">Contact & Social Media</h2>
+
+                <p class="contactSubtitle">Terhubung dengan Serene Hall Coffee untuk informasi terbaru dan promo menarik.</p>
+
+                <div class="contactContainer">
+
+                    <div class="contactCard">
+                        <i class="fa-brands fa-instagram"></i>
+                        <h3>Instagram</h3>
+                        <p>@serenehall.coffee</p>
+                        <a href="#" class="btnContact">Kunjungi</a>
+                    </div>
+
+                    <div class="contactCard">
+                        <i class="fa-brands fa-facebook"></i>
+                        <h3>Facebook</h3>
+                        <p>Serene Hall Coffee</p>
+                        <a href="#" class="btnContact">Kunjungi</a>
+                    </div>
+
+                    <div class="contactCard">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <h3>WhatsApp</h3>
+                        <p>+62 812-3456-7890</p>
+                        <a href="#" class="btnContact">Chat Sekarang</a>
+                    </div>
+
+                    <div class="contactCard">
+                        <i class="fa-brands fa-tiktok"></i>
+                        <h3>TikTok</h3>
+                        <p>@serenehall.coffee</p>
+                        <a href="#" class="btnContact">Kunjungi</a>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- SIMPLE FOOTER -->
+            <footer>
+                &copy; <span id="year"></span> Serene Hall Coffee — All rights reserved.
+            </footer>
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+        // sticky shadow
+        (function() {
+            const navbar = document.getElementById('pembungkusNavbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 8) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            });
+        })();
+
+        // mobile menu toggle
+        (function() {
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileClose = document.getElementById('mobileClose');
+            const mobileLinks = document.querySelectorAll('#mobileMenu .mobile-link');
+
+            function openMenu() {
+                mobileMenu.classList.add('open');
+                hamburger.setAttribute('aria-expanded', 'true');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+            }
+
+            hamburger.addEventListener('click', function() {
+                if (mobileMenu.classList.contains('open')) closeMenu();
+                else openMenu();
+            });
+
+            mobileClose.addEventListener('click', closeMenu);
+
+            // close menu when a link is clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // close on escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeMenu();
+            });
+        })();
+
+        // set copyright year
+        (function() {
+            document.getElementById('year').innerText = new Date().getFullYear();
+        })();
+
+
+        // ==========================
+        //  CART WITH LOCALSTORAGE
+        // ==========================
+
+        let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+
+        function saveCart() {
+            localStorage.setItem("cartData", JSON.stringify(cart));
+        }
+
+        const btnAddList = document.querySelectorAll(".btnAdd");
+
+        btnAddList.forEach((btn) => {
+            btn.addEventListener("click", function() {
+                const card = btn.closest(".cardProduk");
+                const nama = card.querySelector(".namaProduk").innerText;
+                const hargaText = card.querySelector(".hargaProduk").innerText;
+                const img = card.querySelector(".imgProduk").src;
+
+                const angkaHarga = parseInt(hargaText.replace(/\D/g, "")); // convert "Rp 25.000" → 25000
+
+                const found = cart.find(item => item.nama === nama);
+                if (found) {
+                    found.qty++;
+                } else {
+                    cart.push({
+                        nama,
+                        harga: angkaHarga,
+                        img,
+                        qty: 1
+                    });
+                }
+
+                saveCart();
+                updateCartUI();
+                openCart();
+            });
+        });
+
+        // ==========================
+        //  SIDEBAR CART
+        // ==========================
+
+        // tombol keranjang desktop + mobile
+        const keranjangButtons = [
+            document.getElementById("keranjangID"), // desktop
+            document.getElementById("mobileKeranjang") // mobile
+        ];
+
+        keranjangButtons.forEach(btn => {
+            if (btn) {
+                btn.addEventListener("click", function(e) {
+                    e.preventDefault();
+
+                    // tutup mobile menu kalau lagi dibuka
+                    const mobileMenu = document.getElementById("mobileMenu");
+                    if (mobileMenu && mobileMenu.classList.contains("open")) {
+                        mobileMenu.classList.remove("open");
+                    }
+
+                    openCart();
+                });
+            }
+        });
+
+
+        const cartSidebar = document.createElement("div");
+        cartSidebar.id = "cartSidebar";
+
+        cartSidebar.innerHTML = `
+        <div id="cartHeader">
+            <h2>Pesanan Anda</h2>
+            <span id="closeCart">✕</span>
+        </div>
+
+        <div id="cartItems"></div>
+
+        <div id="cartFooter">
+            <h3>Total: <span id="totalHarga">Rp 0</span></h3>
+            <button id="checkoutBtn">Checkout</button>
+        </div>
+    `;
+
+
+        document.body.appendChild(cartSidebar);
+
+        const closeCart = cartSidebar.querySelector("#closeCart");
+        closeCart.onclick = () => closeSidebar();
+
+        function openCart() {
+            cartSidebar.classList.add("open");
+            setTimeout(() => {
+                cartSidebar.classList.add("slide"); // smooth slide
+            }, 10);
+        }
+
+        function closeSidebar() {
+            cartSidebar.classList.remove("slide");
+            setTimeout(() => {
+                cartSidebar.classList.remove("open");
+            }, 300);
+        }
+
+        document.getElementById("checkoutBtn").addEventListener("click", () => {
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong. Silakan pilih menu terlebih dahulu.");
+                return;
+            }
+
+            // simpan data keranjang ke localStorage
+            localStorage.setItem("cartData", JSON.stringify(cart));
+
+            // pindah ke halaman pembayaran.html
+            window.location.href = "pembayaran.html";
+        });
+
+        // ==========================
+        //   UPDATE UI CART
+        // ==========================
+        function updateCartUI() {
+            const container = document.getElementById("cartItems");
+            const totalHargaEl = document.getElementById("totalHarga");
+
+            container.innerHTML = "";
+
+            if (cart.length === 0) {
+                container.innerHTML = "<p style='padding:20px;'>Keranjang kosong.</p>";
+                totalHargaEl.innerText = "Rp 0";
+                saveCart();
+                return;
+            }
+
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.harga * item.qty;
+
+                container.innerHTML += `
+                <div class="cartItem">
+                    <img src="${item.img}">
+                    <div>
+                        <h4>${item.nama}</h4>
+                        <p>Rp ${item.harga.toLocaleString()}</p>
+
+                        <div class="qtyBox">
+                            <button class="qtyBtn" onclick="changeQty(${index}, -1)">−</button>
+                            <span class="qtyNum">${item.qty}</span>
+                            <button class="qtyBtn" onclick="changeQty(${index}, 1)">+</button>
+                        </div>
+                    </div>
+
+                    <button class="btnDelete" onclick="removeItem(${index})">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+            `;
+            });
+
+            totalHargaEl.innerText = "Rp " + total.toLocaleString();
+            saveCart();
+        }
+
+        // ==========================
+        //  QTY FUNCTION
+        // ==========================
+        window.changeQty = function(i, val) {
+            cart[i].qty += val;
+
+            if (cart[i].qty <= 0) cart.splice(i, 1);
+
+            updateCartUI();
+        };
+
+        // ==========================
+        //  REMOVE ITEM
+        // ==========================
+        window.removeItem = function(i) {
+            cart.splice(i, 1);
+            updateCartUI();
+        };
+
+        // tampilkan cart saat pertama buka halaman
+        updateCartUI();
+    </script>
+</body>
+
+</html>
