@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="asset/logo/2.png" />
+    <title>Deskripsi Menu - Serene Hall</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #f7f3ed;
+            color: #3b2f25;
+            line-height: 1.4;
+        }
+        /* NAVBAR */
+        
+        #pembungkusNavbar {
+            background-color: white;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            transition: 0.28s ease, background-color 0.3s;
+        }
+        
+        .navbar-scrolled {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+            backdrop-filter: saturate(120%) blur(4px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        #bagianKiri {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        
+        #bagianKiri img {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s;
+        }
+        
+        #bagianKiri img:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+        
+        #namaWeb {
+            font-size: 20px;
+            font-weight: 700;
+            color: #3b2f25;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+        
+        #bagianKanan {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+        
+        .navigasi {
+            font-size: 17px;
+            text-decoration: none;
+            color: #222;
+            padding: 8px 6px;
+            border-radius: 8px;
+            transition: color .18s, background .18s, transform .18s;
+        }
+        
+        .navigasi:hover {
+            color: #c9b59c;
+            transform: translateY(-3px) scale(1.05);
+        }
+        
+        #hamburger {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        #hamburger:hover {
+            transform: rotate(90deg);
+        }
+        /* MOBILE MENU */
+        
+        #mobileMenu {
+            display: flex;
+            position: fixed;
+            top: 70px;
+            right: 0;
+            width: 70%;
+            max-width: 360px;
+            height: calc(100vh - 70px);
+            background: white;
+            box-shadow: -8px 0 28px rgba(0, 0, 0, 0.12);
+            padding: 28px;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 998;
+            transform: translateX(100%);
+            transition: transform 0.28s ease, box-shadow 0.3s;
+        }
+        
+        #mobileMenu.open {
+            transform: translateX(0%);
+        }
+        
+        #mobileMenu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #222;
+            padding: 10px 6px;
+            border-radius: 8px;
+            transition: 0.25s ease, background-color 0.25s;
+        }
+        
+        #mobileMenu a:hover {
+            background-color: #f0e4db;
+        }
+        
+        #mobileOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 997;
+        }
+        
+        #mobileMenu.open~#mobileOverlay {
+            display: block;
+        }
+        
+        @media (max-width: 780px) {
+            #bagianKanan {
+                display: none;
+            }
+            #hamburger {
+                display: block;
+            }
+        }
+        /* MAIN CONTENT */
+        
+        main {
+            padding-top: 90px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .heroSection {
+            background-color: #d8c4b6;
+            border-radius: 16px;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .heroSection:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+        }
+        
+        .sectionMenu {
+            background-color: white;
+            border-radius: 16px;
+            padding: 40px 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s;
+        }
+        
+        .sectionMenu:hover {
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+        }
+        
+        .sectionMenu h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #3b2f25;
+            letter-spacing: 0.5px;
+        }
+        
+        .searchInput,
+        .sortSelect {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid #ccc;
+            margin-bottom: 24px;
+            font-size: 16px;
+            transition: 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .searchInput:focus,
+        .sortSelect:focus {
+            outline: none;
+            box-shadow: 0 0 12px rgba(201, 181, 156, 0.4);
+            border-color: #c9b59c;
+        }
+        /* GRID & CARD */
+        
+        .gridMenuList {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        
+        .menuItemCard {
+            background: #fff8f2;
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid #f0e4db;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+        
+        .menuItemCard:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menuItemCard img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .menuItemCard img:hover {
+            transform: scale(1.05);
+        }
+        
+        .menuItemCard span {
+            font-weight: 700;
+            color: #3b2f25;
+            font-size: 16px;
+        }
+        
+        .menuItemCard p {
+            font-size: 13px;
+            color: #5a4e45;
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+        
+        @media(max-width: 768px) {
+            .menuItemCard img {
+                height: 120px;
+            }
+            .gridMenuList {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media(max-width: 480px) {
+            .menuItemCard img {
+                height: 110px;
+            }
+            .gridMenuList {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* FOOTER */
+        
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            color: #6b6058;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div id="pembungkusNavbar">
+            <div id="bagianKiri">
+                <img src="asset/logo/2.png">
+                <div id="namaWeb">SERENE HALL</div>
+            </div>
+
+            <nav id="bagianKanan">
+                <a class="navigasi" href="index.html">Beranda</a>
+                <a class="navigasi" href="index.html#kontenKedua">Menu</a>
+                <a class="navigasi" href="tentangMenu.html">Deskripsi Menu</a>
+                <a class="navigasi" href="index.html#kontenKeenam">Tentang Serene Hall</a>
+                <a class="navigasi" href="index.html#kontenKetujuh">Kontak</a>
+            </nav>
+
+            <div id="hamburger">☰</div>
+        </div>
+
+        <div id="mobileMenu">
+            <div id="mobileClose">✕</div>
+            <a href="index.html" class="mobile-link">Beranda</a>
+            <a href="index.html#kontenKedua" class="mobile-link">Menu</a>
+            <a class="navigasi" href="tentangMenu.html">Deskripsi Menu</a>
+            <a href="index.html#kontenKeenam" class="mobile-link">Tentang Serene Hall</a>
+            <a href="index.html#kontenKetujuh" class="mobile-link">Kontak</a>
+        </div>
+
+        <div id="mobileOverlay"></div>
+    </header>
+
+    <main>
+
+        <section class="heroSection">
+            <h1>Tentang Menu</h1>
+            <p>Cari, urutkan, dan lihat semua menu dengan mudah.</p>
+        </section>
+
+        <!-- SEARCH -->
+        <section class="sectionMenu">
+            <h2>Cari Menu</h2>
+            <input type="text" placeholder="Cari menu..." class="searchInput" id="searchInput">
+            <div class="gridMenuList" id="listSearch"></div>
+        </section>
+
+        <!-- SEMUA MENU (DENGAN SORTING) -->
+        <section class="sectionMenu">
+            <h2>Semua Menu</h2>
+
+            <select class="sortSelect" id="sortSemuaSelect">
+                <option value="asc">Harga Termurah</option>
+                <option value="desc">Harga Termahal</option>
+            </select>
+
+            <div class="gridMenuList" id="listSemua"></div>
+        </section>
+
+        <footer>
+            &copy; <span id="year"></span> Serene Hall Coffee — All rights reserved.
+        </footer>
+
+    </main>
+
+    <script>
+        (function() {
+            document.getElementById('year').innerText = new Date().getFullYear();
+        })();
+
+        /* MOBILE MENU */
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const mobileClose = document.getElementById("mobileClose");
+        const mobileOverlay = document.getElementById("mobileOverlay");
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.add("open");
+        });
+
+        mobileClose.addEventListener("click", () => {
+            mobileMenu.classList.remove("open");
+        });
+
+        mobileOverlay.addEventListener("click", () => {
+            mobileMenu.classList.remove("open");
+        });
+
+        /* HASHMAP */
+        const menuMap = new Map();
+        menuMap.set("coffee", []);
+        menuMap.set("nonCoffee", []);
+        menuMap.set("tea", []);
+
+        /* DATA */
+        const semuaMenu = [{
+            nama: "Espresso",
+            harga: 15000,
+            kategori: "coffee",
+            img: "asset/menu_kopi/espreso.jpg",
+            deskripsi: "Espresso adalah kopi pekat yang dibuat dengan mengekstraksi biji kopi halus menggunakan tekanan tinggi. Merupakan dasar dari banyak minuman kopi lain seperti Latte dan Cappuccino. Aroma dan rasa intens membuat espresso populer di seluruh dunia."
+        }, {
+            nama: "Americano",
+            harga: 15000,
+            kategori: "coffee",
+            img: "asset/menu_kopi/americano.jpg",
+            deskripsi: "Americano dibuat dengan menambahkan air panas ke espresso sehingga menghasilkan kopi yang lebih ringan namun tetap mempertahankan rasa espresso. Cocok untuk yang ingin menikmati kopi dengan intensitas sedang."
+        }, {
+            nama: "Flat White",
+            harga: 17000,
+            kategori: "coffee",
+            img: "asset/menu_kopi/flat_white.jpg",
+            deskripsi: "Flat White berasal dari Australia/New Zealand, menggabungkan espresso dengan susu yang di-steam hingga creamy dan lembut. Tekstur mikrofoam memberikan rasa halus dan lembut."
+        }, {
+            nama: "Caramel Latte",
+            harga: 21000,
+            kategori: "coffee",
+            img: "asset/menu_kopi/caramel_late.jpg",
+            deskripsi: "Caramel Latte adalah minuman espresso dengan susu panas dan sirup karamel dengan tambahan jelly yang kenyal. Rasa manis karamel berpadu dengan pahit espresso untuk cita rasa seimbang."
+        }, {
+            nama: "Cappuccino",
+            harga: 17000,
+            kategori: "coffee",
+            img: "asset/menu_kopi/cappucino.jpg",
+            deskripsi: "Cappuccino klasik terdiri dari espresso, susu panas, dan busa susu tebal di atasnya. Rasanya seimbang dan menjadi favorit di kafe-kafe."
+        }, {
+            nama: "Mochaccino",
+            harga: 18000,
+            kategori: "coffee",
+            img: "asset/menu_kopi/mochacino.jpg",
+            deskripsi: "Mochaccino adalah perpaduan kopi espresso dan coklat panas, menghasilkan minuman creamy dengan aroma kopi dan coklat yang kaya."
+        }, {
+            nama: "Matcha Latte",
+            harga: 18000,
+            kategori: "nonCoffee",
+            img: "asset/menu_kopi/matcha_latte.jpg",
+            deskripsi: "Matcha Latte adalah teh hijau bubuk berkualitas tinggi dicampur susu panas. Kaya antioksidan dan rasa umami khas matcha."
+        }, {
+            nama: "Red Velvet",
+            harga: 15000,
+            kategori: "nonCoffee",
+            img: "asset/menu_kopi/red_velvet.jpg",
+            deskripsi: "Red Velvet Latte adalah minuman manis berwarna merah cerah yang memiliki rasa kombinasi sedikit cokelat, sedikit vanila, dan rasa lembut seperti cream cheese. Minuman ini terinspirasi dari kue Red Velvet yang populer, menawarkan cita rasa yang kaya, creamy, dan memanjakan."
+        }, {
+            nama: "Thai Tea",
+            harga: 13000,
+            kategori: "tea",
+            img: "asset/menu_kopi/thai_tea.jpg",
+            deskripsi: "Thai Tea dibuat dari teh hitam khas Thailand dicampur susu kental manis dan gula. Rasanya manis, creamy, dan aromatik, populer di seluruh dunia."
+        }];
+
+        semuaMenu.forEach(item => menuMap.get(item.kategori).push(item));
+
+        /* gabungan semua kategori */
+        const semuaDataGabungan = [
+            ...menuMap.get("coffee"),
+            ...menuMap.get("nonCoffee"),
+            ...menuMap.get("tea")
+        ];
+
+        /* tampilkan list */
+        function tampilkanList(target, data) {
+            document.getElementById(target).innerHTML = data.map(item => `
+                <div class="menuItemCard">
+                    <img src="${item.img}">
+                    <span>${item.nama}</span>
+                    <span>Rp ${item.harga.toLocaleString()}</span>
+                    <p>${item.deskripsi}</p>
+                </div>
+            `).join("");
+        }
+
+        /* SEARCH */
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", e => {
+            const key = e.target.value.toLowerCase();
+            const hasil = semuaDataGabungan.filter(i => i.nama.toLowerCase().includes(key));
+            tampilkanList("listSearch", hasil);
+        });
+
+        /* SORTING SEMUA MENU */
+        const sortSemuaSelect = document.getElementById("sortSemuaSelect");
+
+        function updateSortedSemua() {
+            const sorted = [...semuaDataGabungan].sort((a, b) =>
+                sortSemuaSelect.value === "asc" ? a.harga - b.harga : b.harga - a.harga
+            );
+            tampilkanList("listSemua", sorted);
+        }
+
+        sortSemuaSelect.addEventListener("change", updateSortedSemua);
+
+        updateSortedSemua(); // tampil awal
+    </script>
+
+</body>
+
+</html>
