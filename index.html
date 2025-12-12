@@ -502,6 +502,7 @@
             }
             #mobileMenu {
                 display: flex;
+                background-color: white;
             }
             .aboutInner {
                 flex-direction: column;
@@ -768,6 +769,35 @@
             transform: scale(0.92);
             opacity: 0.8;
         }
+        /* ===== SEARCH MENU STYLING ===== */
+        
+        .searchWrapper {
+            text-align: center;
+            margin: 30px 0 50px 0;
+        }
+        
+        #searchMenu {
+            width: 60%;
+            max-width: 400px;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid #e0d7cf;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            transition: all 0.25s ease;
+        }
+        
+        #searchMenu::placeholder {
+            color: #a3917d;
+            font-style: italic;
+        }
+        
+        #searchMenu:focus {
+            border-color: #c9b59c;
+            box-shadow: 0 4px 20px rgba(201, 181, 156, 0.4);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 
@@ -782,10 +812,11 @@
 
             <!-- Desktop menu -->
             <nav id="bagianKanan" aria-hidden="false">
-                <a class="navigasi" href="#">Home</a>
+                <a class="navigasi" href="#">Beranda</a>
                 <a class="navigasi" href="#kontenKedua">Menu</a>
-                <a class="navigasi" href="#kontenKeenam">About</a>
-                <a class="navigasi" href="#kontenKetujuh">Contact</a>
+                <a class="navigasi" href="tentangMenu.html">Deskripsi Menu</a>
+                <a class="navigasi" href="#kontenKeenam">Tentang Serene Hall</a>
+                <a class="navigasi" href="#kontenKetujuh">Kontak</a>
                 <a class="navigasi" id="keranjangID" href="#">Pesanan Anda</a>
             </nav>
 
@@ -796,11 +827,12 @@
         <!-- Mobile slide menu -->
         <nav id="mobileMenu" aria-hidden="true">
             <div id="mobileClose" aria-label="Close menu">✕</div>
-            <a href="#" class="mobile-link">Home</a>
+            <a href="#" class="mobile-link">Beranda</a>
             <a href="#kontenKedua" class="mobile-link">Menu</a>
-            <a href="#kontenKeenam" class="mobile-link">About</a>
-            <a href="#kontenKetujuh" class="mobile-link">Contact</a>
-            <a href="#" id="mobileKeranjang" class="mobile-link">Pesanan</a>
+            <a class="navigasi" href="tentangMenu.html">Deskripsi Menu</a>
+            <a href="#kontenKeenam" class="mobile-link">Tentang Serene Hall</a>
+            <a href="#kontenKetujuh" class="mobile-link">Kontak</a>
+            <a href="#" id="mobileKeranjang" class="mobile-link">Pesanan Anda</a>
         </nav>
     </header>
 
@@ -833,7 +865,7 @@
 
                     <!-- Kategori 2 -->
                     <div class="menuCard">
-                        <h3>Non Coffee</h3>
+                        <h3>Non - Coffee</h3>
                         <p>Serene Hall juga menawarkan minuman non-coffee.</p>
                         <a href="#kontenKeempat"><button class="btnMenu">Lihat Menu</button></a>
                     </div>
@@ -846,6 +878,7 @@
                     </div>
                 </div>
             </section>
+
 
             <!-- BEST SELLER -->
             <section id="kontenKetiga" class="sectionMenu">
@@ -906,6 +939,10 @@
             <!-- ALL MENU -->
             <section id="kontenKelima" class="sectionMenu">
                 <h2 class="sectionTitle">All Menu</h2>
+                <!-- SEARCH MENU -->
+                <div style="text-align:center; margin: 30px 0;">
+                    <input type="text" id="searchMenu" placeholder="Cari menu..." style="width: 60%; max-width: 400px; padding: 12px 16px; border-radius: 12px; border: 1px solid #ccc; font-size:16px;">
+                </div>
 
                 <div class="gridProduk">
                     <div class="cardProduk">
@@ -1037,19 +1074,22 @@
 
     <!-- SCRIPTS -->
     <script>
-        // sticky shadow
+        // --------------------------        FRONTEND / UI        --------------------------------- //
+
+        // ---------------------------------------------------------------
+        // 1. NAVBAR SHADOW
+        // ---------------------------------------------------------------
         (function() {
             const navbar = document.getElementById('pembungkusNavbar');
             window.addEventListener('scroll', function() {
-                if (window.scrollY > 8) {
-                    navbar.classList.add('navbar-scrolled');
-                } else {
-                    navbar.classList.remove('navbar-scrolled');
-                }
+                navbar.classList.toggle('navbar-scrolled', window.scrollY > 8);
             });
         })();
 
-        // mobile menu toggle
+
+        // ---------------------------------------------------------------
+        // 2. MOBILE MENU TOGGLE
+        // ---------------------------------------------------------------
         (function() {
             const hamburger = document.getElementById('hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
@@ -1068,85 +1108,63 @@
                 mobileMenu.setAttribute('aria-hidden', 'true');
             }
 
-            hamburger.addEventListener('click', function() {
-                if (mobileMenu.classList.contains('open')) closeMenu();
-                else openMenu();
-            });
+            hamburger.addEventListener('click', () =>
+                mobileMenu.classList.contains('open') ? closeMenu() : openMenu()
+            );
 
             mobileClose.addEventListener('click', closeMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-            // close menu when a link is clicked
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
-
-            // close on escape
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') closeMenu();
             });
         })();
 
-        // set copyright year
+
+        // ---------------------------------------------------------------
+        // 3. COPYRIGHT YEAR
+        // ---------------------------------------------------------------
         (function() {
             document.getElementById('year').innerText = new Date().getFullYear();
         })();
 
 
-        // ==========================
-        //  CART WITH LOCALSTORAGE
-        // ==========================
+        // ---------------------------------------------------------------
+        // 4. SIDEBAR CART OPEN/CLOSE (UI)
+        // ---------------------------------------------------------------
+        const cartSidebar = document.createElement("div");
+        cartSidebar.id = "cartSidebar";
 
-        let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+        cartSidebar.innerHTML = `
+        <div id="cartHeader">
+            <h2>Pesanan Anda</h2>
+            <span id="closeCart">✕</span>
+        </div>
+        <div id="cartItems"></div>
+        <div id="cartFooter">
+            <h3>Total: <span id="totalHarga">Rp 0</span></h3>
+            <button id="checkoutBtn">Checkout</button>
+        </div>
+    `;
+        document.body.appendChild(cartSidebar);
 
-        function saveCart() {
-            localStorage.setItem("cartData", JSON.stringify(cart));
+        function openCart() {
+            cartSidebar.classList.add("open");
+            setTimeout(() => cartSidebar.classList.add("slide"), 10);
         }
 
-        const btnAddList = document.querySelectorAll(".btnAdd");
+        function closeSidebar() {
+            cartSidebar.classList.remove("slide");
+            setTimeout(() => cartSidebar.classList.remove("open"), 300);
+        }
 
-        btnAddList.forEach((btn) => {
-            btn.addEventListener("click", function() {
-                const card = btn.closest(".cardProduk");
-                const nama = card.querySelector(".namaProduk").innerText;
-                const hargaText = card.querySelector(".hargaProduk").innerText;
-                const img = card.querySelector(".imgProduk").src;
+        document.getElementById("closeCart").onclick = closeSidebar;
 
-                const angkaHarga = parseInt(hargaText.replace(/\D/g, "")); // convert "Rp 25.000" → 25000
-
-                const found = cart.find(item => item.nama === nama);
-                if (found) {
-                    found.qty++;
-                } else {
-                    cart.push({
-                        nama,
-                        harga: angkaHarga,
-                        img,
-                        qty: 1
-                    });
-                }
-
-                saveCart();
-                updateCartUI();
-                openCart();
-            });
-        });
-
-        // ==========================
-        //  SIDEBAR CART
-        // ==========================
-
-        // tombol keranjang desktop + mobile
-        const keranjangButtons = [
-            document.getElementById("keranjangID"), // desktop
-            document.getElementById("mobileKeranjang") // mobile
-        ];
-
-        keranjangButtons.forEach(btn => {
+        document.querySelectorAll("#keranjangID, #mobileKeranjang").forEach(btn => {
             if (btn) {
-                btn.addEventListener("click", function(e) {
+                btn.addEventListener("click", e => {
                     e.preventDefault();
 
-                    // tutup mobile menu kalau lagi dibuka
                     const mobileMenu = document.getElementById("mobileMenu");
                     if (mobileMenu && mobileMenu.classList.contains("open")) {
                         mobileMenu.classList.remove("open");
@@ -1158,59 +1176,57 @@
         });
 
 
-        const cartSidebar = document.createElement("div");
-        cartSidebar.id = "cartSidebar";
-
-        cartSidebar.innerHTML = `
-        <div id="cartHeader">
-            <h2>Pesanan Anda</h2>
-            <span id="closeCart">✕</span>
-        </div>
-
-        <div id="cartItems"></div>
-
-        <div id="cartFooter">
-            <h3>Total: <span id="totalHarga">Rp 0</span></h3>
-            <button id="checkoutBtn">Checkout</button>
-        </div>
-    `;
 
 
-        document.body.appendChild(cartSidebar);
+        /* ===============================================================
+           ================== LOGIC SECTION (DATA / CART) =================
+           =============================================================== */
 
-        const closeCart = cartSidebar.querySelector("#closeCart");
-        closeCart.onclick = () => closeSidebar();
 
-        function openCart() {
-            cartSidebar.classList.add("open");
-            setTimeout(() => {
-                cartSidebar.classList.add("slide"); // smooth slide
-            }, 10);
-        }
+        // ---------------------------------------------------------------
+        // 5. CART DATA & LOCAL STORAGE
+        // ---------------------------------------------------------------
+        let cart = JSON.parse(localStorage.getItem("cartData")) || [];
 
-        function closeSidebar() {
-            cartSidebar.classList.remove("slide");
-            setTimeout(() => {
-                cartSidebar.classList.remove("open");
-            }, 300);
-        }
-
-        document.getElementById("checkoutBtn").addEventListener("click", () => {
-            if (cart.length === 0) {
-                alert("Keranjang masih kosong. Silakan pilih menu terlebih dahulu.");
-                return;
-            }
-
-            // simpan data keranjang ke localStorage
+        function saveCart() {
             localStorage.setItem("cartData", JSON.stringify(cart));
+        }
 
-            // pindah ke halaman pembayaran.html
-            window.location.href = "pembayaran.html";
+
+        // ---------------------------------------------------------------
+        // 6. ADD TO CART LOGIC
+        // ---------------------------------------------------------------
+        const btnAddList = document.querySelectorAll(".btnAdd");
+
+        btnAddList.forEach(btn => {
+            btn.addEventListener("click", function() {
+                const card = btn.closest(".cardProduk");
+                const nama = card.querySelector(".namaProduk").innerText;
+                const hargaText = card.querySelector(".hargaProduk").innerText;
+                const img = card.querySelector(".imgProduk").src;
+
+                const angkaHarga = parseInt(hargaText.replace(/\D/g, ""));
+
+                const found = cart.find(item => item.nama === nama);
+
+                if (found) found.qty++;
+                else cart.push({
+                    nama,
+                    harga: angkaHarga,
+                    img,
+                    qty: 1
+                });
+
+                saveCart();
+                updateCartUI();
+                openCart();
+            });
         });
 
-        // ==========================
-        //   UPDATE UI CART
-        // ==========================
+
+        // ---------------------------------------------------------------
+        // 7. UPDATE CART UI
+        // ---------------------------------------------------------------
         function updateCartUI() {
             const container = document.getElementById("cartItems");
             const totalHargaEl = document.getElementById("totalHarga");
@@ -1246,7 +1262,6 @@
                     <button class="btnDelete" onclick="removeItem(${index})">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
-
                 </div>
             `;
             });
@@ -1255,29 +1270,59 @@
             saveCart();
         }
 
-        // ==========================
-        //  QTY FUNCTION
-        // ==========================
+
+        // ---------------------------------------------------------------
+        // 8. QTY CHANGE
+        // ---------------------------------------------------------------
         window.changeQty = function(i, val) {
             cart[i].qty += val;
-
             if (cart[i].qty <= 0) cart.splice(i, 1);
-
             updateCartUI();
         };
 
-        // ==========================
-        //  REMOVE ITEM
-        // ==========================
+
+        // ---------------------------------------------------------------
+        // 9. REMOVE ITEM
+        // ---------------------------------------------------------------
         window.removeItem = function(i) {
             cart.splice(i, 1);
             updateCartUI();
         };
 
-        // tampilkan cart saat pertama buka halaman
-        updateCartUI();
-    </script>
-</body>
 
+        // ---------------------------------------------------------------
+        // 10. CHECKOUT
+        // ---------------------------------------------------------------
+        document.getElementById("checkoutBtn").addEventListener("click", () => {
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong. Silakan pilih menu terlebih dahulu.");
+                return;
+            }
+            saveCart();
+            window.location.href = "pembayaran.html";
+        });
+
+
+        // tampilkan cart saat load
+        updateCartUI();
+
+        // ---------------------------------------------------------------
+        // 11. SEARCH MENU
+        // ---------------------------------------------------------------
+        const searchInput = document.getElementById('searchMenu');
+        const allMenuSection = document.querySelector('#kontenKelima .gridProduk'); // grid All Menu
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const allCards = allMenuSection.querySelectorAll('.cardProduk'); // Hanya All Menu
+
+            allCards.forEach(card => {
+                const nama = card.querySelector('.namaProduk').innerText.toLowerCase();
+                card.style.display = nama.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+
+</body>
 
 </html>
